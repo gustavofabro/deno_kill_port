@@ -6,6 +6,10 @@ export async function killPort(
   port: number,
   options: KillPortOptions = {},
 ): Promise<void> {
+  if (Deno.build.os == 'windows') {
+    throw Error("Windows OS not supported yet.");
+  }
+
   if (!port) {
     throw Error("Port number not provided");
   }
