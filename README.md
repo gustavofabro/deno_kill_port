@@ -5,7 +5,7 @@
 ## Usage
 
 ```typescript
-
+...
 ```
 
 ## Test
