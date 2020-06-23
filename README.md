@@ -1,4 +1,4 @@
-# 🦕 WIP: deno-kill-port
+# 🦕 deno-kill-port
 
 [Deno](https://deno.land) module that kills the process of an informed port.
 
