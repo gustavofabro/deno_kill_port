@@ -7,7 +7,8 @@ export async function killPort(
   options: KillPortOptions = {},
 ): Promise<void> {
   if (Deno.build.os == 'windows') {
-    throw Error("Windows OS not supported yet.");
+    const pid = getPidPortWindows(port)
+    console.log(pid)
   }
 
   if (!port) {
@@ -21,6 +22,13 @@ export async function killPort(
   }
 
   await killProcess(pid);
+}
+
+async function getPidPortWindows(port: number) {
+  const cmd = Deno.run({
+    cmd: ["netstat -a -n -o | findstr",`${port}`]
+  })
+  console.log(cmd)
 }
 
 async function getPidPort(
