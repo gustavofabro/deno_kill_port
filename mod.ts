@@ -2,6 +2,14 @@ interface KillPortOptions {
   protocol?: "tcp" | "udp";
 }
 
+/**
+ *  Finds and kills the informed port process / task
+ * @param port Port number
+ * @param options (optional)
+ * Example:
+ *
+ *     killPort(8082);
+ */
 export async function killPort(
   port: number,
   options: KillPortOptions = {},
