@@ -6,6 +6,7 @@ interface KillPortOptions {
  *  Finds and kills the informed port process / task
  * @param port Port number
  * @param options (optional)
+ * @return Returns a promise with the port's PID
  * Example:
  *
  *     killPort(8082);
