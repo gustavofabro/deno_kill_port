@@ -7,9 +7,11 @@ interface KillPortOptions {
  * @param port Port number
  * @param options (optional)
  * @return Returns a promise with the port's PID or null if the port PID was not found
+ *
  * Example:
  *
- *     killPort(8082);
+ *     await killPort(8082);
+ *
  */
 export async function killPort(
   port: number,
