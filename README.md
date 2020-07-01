@@ -7,7 +7,7 @@
 ```typescript
 import { killPort } from "https://deno.land/x/kill_port/mod.ts";
 
-killPort(8082);
+await killPort(8082);
 ```
 
 ## Test
