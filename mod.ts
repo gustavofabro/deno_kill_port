@@ -6,7 +6,7 @@ interface KillPortOptions {
  *  Finds and kills the informed port process / task
  * @param port Port number
  * @param options (optional)
- * @return Returns a promise with the port's PID
+ * @return Returns a promise with the port's PID or null if the port PID was not found
  * Example:
  *
  *     killPort(8082);
@@ -14,17 +14,17 @@ interface KillPortOptions {
 export async function killPort(
   port: number,
   options: KillPortOptions = {},
-): Promise<number> {
+): Promise<number | null> {
   return await (Deno.build.os == "windows"
     ? handleKillPortWindows(port)
     : handleKillPort(port, options));
 }
 
-async function handleKillPortWindows(port: number): Promise<number> {
+async function handleKillPortWindows(port: number): Promise<number | null> {
   const pid = await getPidPortWindows(port);
 
   if (!pid) {
-    throw Error(`No PID found for the port "${port}"`);
+    return null;
   }
 
   await killProcessWindows(pid);
@@ -57,11 +57,11 @@ async function killProcessWindows(pid: number): Promise<void> {
 async function handleKillPort(
   port: number,
   options: KillPortOptions = {},
-): Promise<number> {
+): Promise<number | null> {
   const pid = await getPidPort(port, options);
 
   if (!pid) {
-    throw Error(`No PID found for the port "${port}"`);
+    return null;
   }
 
   await killProcess(pid);
