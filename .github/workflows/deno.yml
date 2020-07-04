@@ -7,17 +7,12 @@ jobs:
     name: Test with Deno ${{ matrix.deno }} 
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - name: Setup Deno
         uses: denolib/setup-deno@master
         with:
           deno-version: '1.x'
-
-      # - name: Setup Node
-      #   uses: actions/setup-node@master
-      #   with:
-      #     node-version: 12
 
       - name: Print deno version
         run: deno --version
