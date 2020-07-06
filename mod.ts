@@ -18,11 +18,14 @@ export async function killPort(
   options: KillPortOptions = {},
 ): Promise<number | null> {
   return await (Deno.build.os == "windows"
-    ? handleKillPortWindows(port, options.protocol || "tcp")
+    ? handleKillPortWindows(port, options)
     : handleKillPort(port, options));
 }
 
-async function handleKillPortWindows(port: number, options: string): Promise<number | null> {
+async function handleKillPortWindows(
+  port: number,
+  options: KillPortOptions,
+): Promise<number | null> {
   const pid = await getPidPortWindows(port, options);
 
   if (!pid) {
@@ -34,17 +37,26 @@ async function handleKillPortWindows(port: number, options: string): Promise<num
   return pid;
 }
 
-async function getPidPortWindows(port: number, options: string): Promise<number> {
+async function getPidPortWindows(
+  port: number,
+  options: KillPortOptions,
+): Promise<number> {
   const cmd = Deno.run({
     cmd: ["cmd", "/c", "netstat -a -n -o | findstr", `${port}`],
     stdout: "piped",
     stderr: "piped",
   });
+
   const output = new TextDecoder("utf-8").decode(await cmd.output());
-  if (options.toUpperCase() === output.trim().split(/[\s, ]+/)[0].toUpperCase()) {
+
+  if (
+    (options.protocol || "tcp").toUpperCase() ===
+      output.trim().split(/[\s, ]+/)[0].toUpperCase()
+  ) {
     return parseInt(output.trim().split(/[\s, ]+/)[4]);
-  }  
-  return 0;
+  }
+  
+  return null;
 }
 
 async function killProcessWindows(pid: number): Promise<void> {
