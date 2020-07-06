@@ -55,7 +55,7 @@ async function getPidPortWindows(
   ) {
     return parseInt(output.trim().split(/[\s, ]+/)[4]);
   }
-  
+
   return null;
 }
 
