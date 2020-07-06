@@ -40,7 +40,7 @@ async function handleKillPortWindows(
 async function getPidPortWindows(
   port: number,
   options: KillPortOptions,
-): Promise<number> {
+): Promise<number | null> {
   const cmd = Deno.run({
     cmd: ["cmd", "/c", "netstat -a -n -o | findstr", `${port}`],
     stdout: "piped",
