@@ -1,5 +1,5 @@
 interface KillPortOptions {
-  protocol?: "tcp" | "udp";
+  protocol: "tcp" | "udp";
 }
 
 /**
@@ -15,7 +15,9 @@ interface KillPortOptions {
  */
 export async function killPort(
   port: number,
-  options: KillPortOptions = {},
+  options: KillPortOptions = {
+    protocol: "tcp",
+  },
 ): Promise<number | null> {
   return await (Deno.build.os == "windows"
     ? handleKillPortWindows(port, options)
@@ -50,7 +52,7 @@ async function getPidPortWindows(
   const output = new TextDecoder("utf-8").decode(await cmd.output());
 
   if (
-    (options.protocol || "tcp").toUpperCase() ===
+    (options.protocol).toUpperCase() ===
       output.trim().split(/[\s, ]+/)[0].toUpperCase()
   ) {
     return parseInt(output.trim().split(/[\s, ]+/)[4]);
@@ -73,7 +75,7 @@ async function killProcessWindows(pid: number): Promise<void> {
 
 async function handleKillPort(
   port: number,
-  options: KillPortOptions = {},
+  options: KillPortOptions,
 ): Promise<number | null> {
   const pid = await getPidPort(port, options);
 
@@ -88,10 +90,10 @@ async function handleKillPort(
 
 async function getPidPort(
   port: number,
-  options: KillPortOptions = {},
+  options: KillPortOptions,
 ): Promise<number> {
   const cmd = Deno.run({
-    cmd: ["fuser", `${port}/${options.protocol || "tcp"}`],
+    cmd: ["fuser", `${port}/${options.protocol}`],
     stdout: "piped",
     stderr: "piped",
   });
