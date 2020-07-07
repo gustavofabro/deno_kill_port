@@ -3,7 +3,6 @@ import { killPort } from "./mod.ts";
 
 Deno.test({
   name: "it should kill the port process",
-  ignore: true,
   fn: async function (): Promise<void> {
     const listener = Deno.listen({ port: 9999 });
     await killPort(9999);
