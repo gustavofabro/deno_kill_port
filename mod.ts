@@ -29,6 +29,7 @@ async function handleKillPortWindows(
   options: KillPortOptions,
 ): Promise<number | null> {
   const pid = await getPidPortWindows(port, options);
+
   if (!pid) {
     return null;
   }
@@ -66,7 +67,7 @@ async function getPidPortWindows(
 
 async function killProcessWindows(pid: number): Promise<void> {
   const cmd = Deno.run({
-    cmd: ["cmd", "/c", "taskkill /PID " + `${pid}` + " /F"],
+    cmd: ["cmd", "/c", `taskkill /PID ${pid} /F`],
     stdout: "piped",
     stderr: "piped",
   });
