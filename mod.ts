@@ -29,9 +29,6 @@ async function handleKillPortWindows(
   options: KillPortOptions,
 ): Promise<number | null> {
   const pid = await getPidPortWindows(port, options);
-
-  console.log(pid)
-
   if (!pid) {
     return null;
   }
@@ -53,11 +50,16 @@ async function getPidPortWindows(
 
   const output = new TextDecoder("utf-8").decode(await cmd.output());
 
-  const lines = output.split('\n')
-  const lineWithLocalPortRegEx = new RegExp(`^ *${options.protocol.toUpperCase()} *[^ ]*:${port}`, 'gm')
-  const linesWithLocalPort = lines.filter(line => line.match(lineWithLocalPortRegEx))
+  const lines = output.split("\n");
+  const lineWithLocalPortRegEx = new RegExp(
+    `^ *${options.protocol.toUpperCase()} *[^ ]*:${port}`,
+    "gm",
+  );
+  const linesWithLocalPort = lines.filter((line) =>
+    line.match(lineWithLocalPortRegEx)
+  );
 
-  const pid = linesWithLocalPort[0].trim().split(/[\s, ]+/)[3]
+  const pid = linesWithLocalPort[0].trim().split(/[\s, ]+/)[3];
 
   return pid ? parseInt(pid) : null;
 }
