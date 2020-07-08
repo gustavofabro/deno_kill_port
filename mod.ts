@@ -49,14 +49,13 @@ async function getPidPortWindows(
 
   const output = new TextDecoder("utf-8").decode(await cmd.output());
 
-  if (
-    (options.protocol || "tcp").toUpperCase() ===
-      output.trim().split(/[\s, ]+/)[0].toUpperCase()
-  ) {
-    return parseInt(output.trim().split(/[\s, ]+/)[4]);
-  }
+  const lines = output.split('\n')
+  const lineWithLocalPortRegEx = new RegExp(`^ *${options.protocol.toUpperCase()} *[^ ]*:${port}`, 'gm')  
+  const linesWithLocalPort = lines.filter(line => line.match(lineWithLocalPortRegEx))
 
-  return null;
+  const pid = linesWithLocalPort[0].trim().split(/[\s, ]+/)[3]
+
+  return pid ? parseInt(pid) : null;
 }
 
 async function killProcessWindows(pid: number): Promise<void> {
