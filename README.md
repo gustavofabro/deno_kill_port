@@ -1,4 +1,6 @@
-<h1 align="center">🦕 deno-kill-port</h1>
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/kill-port)
+
+<h1 align="center">🦕 kill-port</h1>
 
 <p align="center">
   Deno module that kills the process of an informed port
@@ -10,10 +12,16 @@
   </a>
 </p>
 
+
+kill-port is available through:
+- https://nest.land/package/kill-port
+- https://deno.land/x/kill_port
+
+
 ## Usage
 
 ```typescript
-import { killPort } from "https://deno.land/x/kill_port/mod.ts";
+import { killPort } from "https://x.nest.land/kill-port@1.0.0/mod.ts";
 
 await killPort(8082);
 ```
