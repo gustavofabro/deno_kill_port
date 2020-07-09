@@ -1,6 +1,14 @@
-# 🦕 deno-kill-port
+<h1 align="center">🦕 deno-kill-port</h1>
 
-[Deno](https://deno.land) module that kills the process of an informed port.
+<p align="center">
+  Deno module that kills the process of an informed port
+</p>
+
+<p align="center">
+  <a href="https://github.com/gustavofabro/deno_kill_port/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/gustavofabro/deno_kill_port" alt="Deno kill-port is under MIT license." />
+  </a>
+</p>
 
 ## Usage
 
