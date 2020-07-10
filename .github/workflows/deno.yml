@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    name: Test with Deno ${{ matrix.deno }} 
+    name: Deno ${{ matrix.deno }} 
 
     steps:
       - uses: actions/checkout@v2
