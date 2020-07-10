@@ -21,7 +21,7 @@ kill-port is available through:
 ## Usage
 
 ```typescript
-import { killPort } from "https://x.nest.land/kill-port@1.0.0/mod.ts";
+import { killPort } from "https://x.nest.land/kill-port@1.0.1/mod.ts";
 
 await killPort(8082);
 ```

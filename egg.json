@@ -1,6 +1,6 @@
 {
   "name": "kill-port",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Module that kills the process of an informed port",
   "stable": true,
   "repository": "https://github.com/gustavofabro/deno_kill_port",
